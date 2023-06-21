@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public
@@ -8,8 +10,11 @@ class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Product name must not be empty")
     private String name;
     private String description;
+
+    @Min(1)
     private int price;
 
     public int getId() {

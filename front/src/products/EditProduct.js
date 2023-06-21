@@ -25,8 +25,11 @@ export default function EditProduct() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8080/product/${id}`, product);
-    navigate("/");
+    await axios.post("http://localhost:8080/product", product).then(response =>{
+        navigate("/");
+
+    }).catch((error)=>{
+    })
   };
 
   const loadProduct = async () => {

@@ -9,6 +9,8 @@ export default function Navbar() {
           <a className="navbar-brand" href="#">
             Full Stack Application
           </a>
+         
+
           <button
             className="navbar-toggler"
             type="button"

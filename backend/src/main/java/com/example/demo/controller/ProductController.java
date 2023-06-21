@@ -4,34 +4,33 @@ import com.example.demo.exceptions.ProductNotFoundException;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductRepository;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
 class ProductController {
-
     @Autowired
     private ProductRepository productRepository;
 
     @PostMapping("/product")
-    Product newProduct(@RequestBody Product newProduct) {
+    Product newProduct(@RequestBody @Valid Product newProduct) {
         return productRepository.save(newProduct);
     }
 
     @GetMapping("/products")
-    List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+    ResponseEntity<List<Product>> getAllProducts(Pageable page){
+        return ResponseEntity.ok(productRepository.findAll(page).getContent());
 
+    }
+    @GetMapping("/products/search/{searchText}")
+    ResponseEntity<List<Product>> getAllProducts(Pageable pageable,@PathVariable String searchText){
+        return ResponseEntity.ok(productRepository.findAll(pageable, searchText).getContent());
+    }
     @GetMapping("/product/{id}")
     Product getProductById(@PathVariable Long id) {
         return productRepository.findById(id)
@@ -57,6 +56,7 @@ class ProductController {
         productRepository.deleteById(id);
         return "product with id " + id + " has been deleted success.";
     }
+
 
 
 }

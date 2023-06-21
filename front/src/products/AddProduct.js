@@ -10,7 +10,7 @@ export default function AddProduct() {
     description: "",
     price: 0,
   });
- 
+
   const { name, description, price } = product;
 
   const onInputChange = (e) => {
@@ -19,8 +19,10 @@ export default function AddProduct() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8080/product", product);
-    navigate("/");
+    await axios.post("http://localhost:8080/product", product).then(response =>{
+        navigate("/");
+    }).catch((error)=>{
+    })
   };
 
   return (
