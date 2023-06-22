@@ -46,11 +46,13 @@ export default function Home() {
                     className="form-control"
                     placeholder="Search"
                     name="search"
+                    style={{ float: "left" , width:"70%" }}
                 />
                 <button
                     onClick={searchProducts}
                     type="button"
-                    className='btn btn-outline-Black'
+                    className='btn btn-outline-primary mx-2'
+                    style={{ float: "right" }}
                 >
                     search
                 </button>
